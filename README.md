@@ -1,5 +1,5 @@
 # Hospital_System
-This is a hospital system which allow us to:
+This is a hospital system which allows us to:
 1) add new patient in queque of maximum 10 patient per each specialization
 2) order the patients according to the status of health
 3) print all the patients for all specialization
