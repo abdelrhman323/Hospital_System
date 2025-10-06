@@ -1,5 +1,5 @@
 # Hospital_System
-from patient import Patient
+from system_classes.patient import Patient
 
 Specials = 20
 Max_patients = 10

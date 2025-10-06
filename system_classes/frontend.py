@@ -1,12 +1,14 @@
 # Hospital_System
-from patient_mgr import PatientMgr
+from system_classes.patient_mgr import PatientMgr
+from system_classes.test import Dummydata
 
 
 class FrontEnd:
-    def __init__(self):
+    def __init__(self,manual):
         self.PM = PatientMgr()
-    
-    def print_dachbord():
+        self.manual = manual    # auto adding patients for testing if manual is True\1
+
+    def print_dachbord(self):
         msgs = ["Programe options:","1) Add a new patient","2) List all patients",
         "3) Go to next patient","4) remove a leaving patient","5) End the program"]
         print('\n'.join(item for item in msgs)
@@ -21,15 +23,22 @@ class FrontEnd:
     def show_menu(self,choice):    
         choice = int(choice)
         if choice == 1:
-            specialization = input("Enter specialization (from 1 to 20): ")
-            if self.specialization_valid(specialization):
-                specialization = int(specialization)
+            if self.manual:
+                specialization = input("Enter specialization (from 1 to 20): ")
+                if self.specialization_valid(specialization):
+                    specialization = int(specialization)
+                else:
+                    print("enter a valid specialization from 1 to 20")
+                    return ""                                
+                name = input("Enter patient name: ")
+                status = int(input("Enter status (0 Normal / 1 Urgent / 2 Super urgent): "))
+                self.PM.add_new_patient(specialization,name,status)
             else:
-                print("enter a valid specialization from 1 to 20")
-                return ""    
-            name = input("Enter patient name: ")
-            status = int(input("Enter status (0 Normal / 1 Urgent / 2 Super urgent): "))
-            self.PM.add_new_patient(specialization,name,status)
+                Dummy = Dummydata(self.PM)
+                Dummy.generate_patients(1,10,0,1)
+                Dummy.generate_patients(2,7,1,0)
+                Dummy.generate_patients(13,3,0,2)
+                Dummy.generate_patients(17,5,1,0) 
         elif choice == 2:
             self.PM.list_all_patients()    
         elif choice == 3:
